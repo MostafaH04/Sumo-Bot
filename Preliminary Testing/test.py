@@ -1,16 +1,14 @@
-# Write your code here :-)
 from cyberbot import *
 from machine import time_pulse_us
 from utime import *
 from qti import *
 from random import randint
 
-Left = bot(19)
-Right = bot(18)
+Left = bot(19) # setting left motor as pin 19 on the bot
+Right = bot(18) # setting right motor as pin 18 on the bot
 
-trig = pin13
-echo = pin14
-
+trig = pin13 # setup the trigger pin on the US as pin 13 on the microbit
+echo = pin14 # setup the echo pin on the US as pin 14 on the microbit
 
 trig.write_digital(0)
 trig.read_digital()
