@@ -3,7 +3,6 @@ from cyberbot import *
 from machine import time_pulse_us
 from utime import *
 from qti import *
-import music
 from random import randint
 
 Left = bot(19)
@@ -21,6 +20,9 @@ Left.servo_speed(0)
 Right.servo_speed(0)
 
 turnLeft = False
+
+irLeft = bot(11,12)
+irRight = bot(8,9)
 
 while True:
     if pin_logo.is_touched():
@@ -72,14 +74,16 @@ while True:
         forward(True)
         sleep_ms(600)
         turn()
-        sleep_ms(randint(600,1000))
-
-    if dist_cm > 30 and dist_cm < 70:
+        sleep_ms(randint(300,500))
+    
+    if not irLeft.ir_detect(37500):
+        turnLeft = False
+    elif not irRight.ir_detect(37500):
+        turnLeft = True
+        
+    
+    if dist_cm < 70:
         forward()
-        timeDelay = 100
-        timeSet = False
-    elif dist_cm < 20 or dist_cm > 2000:
-        forward(True)
         timeDelay = 100
         timeSet = False
     else:
@@ -96,6 +100,5 @@ while True:
             turn(True)
         else:
             turn()
-
 
 
