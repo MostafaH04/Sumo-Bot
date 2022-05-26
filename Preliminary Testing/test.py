@@ -56,6 +56,8 @@ def getdistance():
 timeDelay = 100
 timeSet = False
 
+dash = False
+
 while True:
     if pin_logo.is_touched():
         stopServ()
@@ -74,14 +76,17 @@ while True:
         turn()
         sleep_ms(randint(300,500))
     
-    if not irLeft.ir_detect(37500):
-        turnLeft = False
+    if (not irRight.ir_detect(37500) and not irLeft.ir_detect(37500)):
+        dash = True
     elif not irRight.ir_detect(37500):
         turnLeft = True
+    elif not irLeft.ir_detect(37500):
+        turnLeft = False
         
     
-    if dist_cm < 70:
+    if dist_cm < 70 or dash:
         forward()
+        dash = False
         timeDelay = 100
         timeSet = False
     else:
@@ -98,5 +103,4 @@ while True:
             turn(True)
         else:
             turn()
-
 
